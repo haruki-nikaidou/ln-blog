@@ -1,0 +1,27 @@
+---
+
+---
+<script is:inline>
+    (() => {
+      // If you ever change the key, bump it here.
+      const KEY = '\u{1090C}theme';
+      try {
+        const stored = localStorage.getItem(KEY);
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored ?? (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        // Hint browsers for proper form controls/scrollbars
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        // If localStorage is blocked, fall back to media query
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = 'dark';
+        }
+      }
+    })();
+</script>
