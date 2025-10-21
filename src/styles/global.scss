@@ -1,8 +1,6 @@
 @use './variables' as *;
 
-// CSS Custom Properties for theming
 :root {
-  // Light mode (default)
   --color-primary: #{$light-primary};
   --color-secondary: #{$light-secondary};
   --color-highlight: #{$light-highlight};
@@ -11,6 +9,10 @@
   --color-text: #{$light-foreground};
   --color-text-secondary: #{$light-muted-foreground};
   --color-border: #{$light-border};
+  --color-danger: #{$light-danger};
+
+  // color for tags
+
 }
 
 .dark {
@@ -22,6 +24,7 @@
   --color-text: #{$dark-foreground};
   --color-text-secondary: #{$dark-muted-foreground};
   --color-border: #{$dark-border};
+  --color-danger: #{$dark-danger};
 }
 
 * {

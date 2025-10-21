@@ -1,6 +1,7 @@
 ---
-import type { Novel } from '../utils/types';
-import TagLink from './TagLink.astro';
+import type { Novel } from "../utils/types";
+import TagLink from "./TagLink.astro";
+import TierMark from "./TierMark.astro";
 
 interface Props {
   novel: Novel;
@@ -14,45 +15,53 @@ const { novel } = Astro.props;
     <div class="cover-wrapper">
       <img src={novel.cover} alt={`${novel.name}の表紙`} class="cover" />
       {novel.ratingTier && (
-        <div class="rating-badge">{novel.ratingTier}</div>
+        <div class="rating-badge">
+          <TierMark tier={novel.ratingTier} />
+        </div>
       )}
     </div>
   </a>
-  
+
   <div class="novel-info">
     <h3 class="novel-title">
       <a href={`/novel/${novel.id}`}>{novel.name}</a>
     </h3>
-    
+
     <div class="authors">
       <p class="author-line">
-        <span class="author-label">著:</span> {novel.authors.writer}
+        <span class="author-label">著:</span>
+        {novel.authors.writer}
       </p>
       <p class="author-line">
-        <span class="author-label">絵:</span> {novel.authors.illustrator}
+        <span class="author-label">絵:</span>
+        {novel.authors.illustrator}
       </p>
     </div>
-    
-    {novel.tags.length > 0 && (
-      <div class="tags">
-        {novel.tags.map((tagId) => (
-          <TagLink tagId={tagId} />
-        ))}
-      </div>
-    )}
+
+    {
+      novel.tags.length > 0 && (
+        <div class="tags">
+          {novel.tags.map((tagId) => (
+            <TagLink tagId={tagId} />
+          ))}
+        </div>
+      )
+    }
   </div>
 </article>
 
 <style lang="scss">
-  @use '../styles/variables' as *;
+  @use "../styles/variables" as *;
 
   .novel-card {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-secondary);
+    background-color: var(--color-card);
     border-radius: $radius-lg;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
     border: 1px solid var(--color-border);
 
     &:hover {
@@ -76,24 +85,12 @@ const { novel } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-
-    .novel-card:hover & {
-      transform: scale(1.05);
-    }
   }
 
   .rating-badge {
     position: absolute;
     top: $spacing-sm;
     right: $spacing-sm;
-    background-color: var(--color-highlight);
-    color: var(--color-secondary);
-    padding: $spacing-xs $spacing-md;
-    border-radius: $radius-md;
-    font-weight: 700;
-    font-size: $font-size-sm;
-    box-shadow: $shadow-md;
   }
 
   .novel-info {
@@ -109,7 +106,7 @@ const { novel } = Astro.props;
       text-decoration: none;
 
       &:hover {
-        color: var(--color-highlight);
+        color: var(--color-primary);
       }
     }
   }
@@ -139,4 +136,3 @@ const { novel } = Astro.props;
     gap: $spacing-sm;
   }
 </style>
-

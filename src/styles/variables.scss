@@ -1,12 +1,13 @@
 // Light mode colors (green palette)
-$light-primary: #06402B;
+$light-primary: #28af80;
 $light-secondary: #156c8f;
-$light-background: #e9f8ea;
+$light-background: #e3f3d6;
 $light-foreground: #010f03;
-$light-card: #b1fac3;
+$light-card: #bcf5ca;
 $light-muted-foreground: #55615c;
 $light-border: #09240D;
 $light-highlight: #7ed1b4;
+$light-danger: #9b3c24;
 
 // Dark mode colors (brown palette)
 $dark-primary: #c27f3c;
@@ -17,6 +18,7 @@ $dark-card: #302922;
 $dark-muted-foreground: #857e73;
 $dark-border: #c09f53;
 $dark-highlight: #473b28;
+$dark-danger: #d36246;
 
 // Breakpoints
 $mobile: 640px;
@@ -35,6 +37,7 @@ $spacing-2xl: 3rem;
 // Typography
 $font-family: 'Noto Serif JP', serif;
 $font-size-base: 16px;
+$font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
 $font-size-md: 1rem;
 $font-size-lg: 1.125rem;

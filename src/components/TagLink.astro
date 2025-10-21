@@ -1,35 +1,62 @@
 ---
+import { getCollection } from 'astro:content';
+
 interface Props {
   tagId: string;
 }
 
 const { tagId } = Astro.props;
+
+const allTags = await getCollection('tag');
+const tag = allTags.find((tag) => tag.data.id === tagId);
+
+if (!tag) {
+  throw new Error(`Tag with id ${tagId} not found`);
+}
 ---
 
-<a href={`/tags/intro/${tagId}`} class="tag-link">
-  {tagId}
+<a href={`/tags/intro/${tagId}`} class={`tag-category-${tag.data.category}`}>
+  {tag.data.name}
 </a>
 
 <style lang="scss">
   @use '../styles/variables' as *;
 
-  .tag-link {
+  a {
     display: inline-block;
     padding: $spacing-xs $spacing-sm;
-    background-color: var(--color-accent);
     color: var(--color-text);
     border-radius: $radius-sm;
-    font-size: $font-size-sm;
+    font-size: $font-size-xs;
     text-decoration: none;
-    transition: all 0.2s ease;
-    border: 1px solid var(--color-border);
+  }
 
-    &:hover {
-      background-color: var(--color-highlight);
-      color: var(--color-secondary);
-      text-decoration: none;
-      transform: translateY(-1px);
-    }
+  $tag-color-category: #50b4e6;
+  $tag-color-character: #db89e6;
+  $tag-color-technique: #129424;
+  $tag-color-publisher: #ffcc99;
+  $tag-color-minor: #9e9e9e;
+
+  .tag-category-majorCategory {
+    background-color: rgba($tag-color-category, 0.35);
+  }
+  .tag-category-minorCategory {
+    background-color: rgba($tag-color-category, 0.35);
+  }
+  .tag-category-character {
+    background-color: rgba($tag-color-character, 0.35);
+  }
+  .tag-category-technique {
+    background-color: rgba($tag-color-technique, 0.35);
+  }
+  .tag-category-pattern {
+    background-color: rgba($tag-color-minor, 0.35);
+  }
+  .tag-category-publisher {
+    background-color: rgba($tag-color-publisher, 0.35);
+  }
+  .tag-category-review {
+    background-color: rgba($tag-color-minor, 0.35);
   }
 </style>
 

@@ -3,7 +3,8 @@ export interface Author {
   illustrator: string;
 }
 
-export type RatingTier = 'F' | 'D' | 'C' | 'B' | 'A' | 'S' | 'S+' | null;
+export type RatingTier = 'F' | 'E' | 'E+' | 'D-' | 'D' | 'D+' | 'C-' | 'C' | 
+  'C+' | 'B-' | 'B' | 'B+' | 'A-' | 'A' | 'A+' | 'S-' | 'S' | 'S+' | null;
 
 export interface Novel {
   id: string;

@@ -34,7 +34,7 @@
       "illustrator": "いとうのいぢ"
     },
     "alterName": ["涼宮ハルヒシリーズ", "The Melancholy of Haruhi Suzumiya"],
-    "tags": ["school", "scifi", "mystery"],
+    "tags": ["school"],
     "ratingTier": "A",
     "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=ハルヒ"
   },
@@ -60,7 +60,7 @@
       "illustrator": "黒星紅白"
     },
     "alterName": ["キノの旅", "Kino's Journey"],
-    "tags": ["adventure", "philosophy", "episodic"],
+    "tags": [],
     "ratingTier": "A",
     "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=キノの旅"
   },
@@ -73,7 +73,7 @@
       "illustrator": "緒方剛志"
     },
     "alterName": ["ブギーポップシリーズ", "Boogiepop"],
-    "tags": ["mystery", "supernatural", "complex"],
+    "tags": [],
     "ratingTier": "A",
     "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=ブギーポップ"
   }

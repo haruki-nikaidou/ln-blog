@@ -1,0 +1,55 @@
+---
+interface Props {
+  level: "spoilerSafe" | "spoilerAlert" | "techniqueReview";
+}
+
+const { level } = Astro.props;
+
+function classForLevel(
+  level: "spoilerSafe" | "spoilerAlert" | "techniqueReview",
+) {
+  switch (level) {
+    case "spoilerSafe":
+      return "spoiler-safe";
+    case "spoilerAlert":
+      return "spoiler-alert";
+    case "techniqueReview":
+      return "technique-review";
+  }
+}
+
+const levelText = {
+  spoilerSafe: "ネタバレなし",
+  spoilerAlert: "ネタバレあり",
+  techniqueReview: "技法レビュー",
+};
+---
+
+<span class={classForLevel(level)}>
+  {levelText[level]}
+</span>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+
+  span {
+    font-size: $font-size-xs;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-md;
+  }
+
+  .spoiler-safe {
+    background-color: var(--color-highlight);
+    color: var(--color-text);
+  }
+
+  .spoiler-alert {
+    background-color: var(--color-danger);
+    color: var(--color-bg);
+  }
+
+  .technique-review {
+    background-color: var(--color-secondary);
+    color: var(--color-bg);
+  }
+</style>

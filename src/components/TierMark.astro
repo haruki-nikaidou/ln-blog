@@ -1,0 +1,88 @@
+---
+import type { RatingTier } from '../utils/types';
+
+interface Props {
+  tier: RatingTier;
+}
+
+const { tier } = Astro.props;
+
+function classForTier(tier: RatingTier): string {
+  if (tier === null) {
+    return 'tier-extra';
+  }
+  const firstLetter = tier.charAt(0);
+  return `tier-${firstLetter}`;
+}
+---
+
+<span class={classForTier(tier)}>
+  {tier || '?'}
+</span>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+
+  $color-tier-F: #880c0c;
+  $color-tier-E: #880c0c;
+  $color-tier-D: #b45304;
+  $color-tier-C: #fdef2b;
+  $color-tier-B: #30a50c;
+  $color-tier-A: #1388be;
+  $color-tier-S: #9522e2;
+  $color-tier-extra: #d3d3d3;
+
+  span {
+    font-size: $font-size-2xl;
+    border-radius: 100%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadow-md;
+    font-weight: bold;
+    font-family: monospace;
+    border: 2px solid var(--color-border);
+  }
+
+  .tier-F {
+    background-color: $color-tier-F;
+    color: $dark-foreground;
+  }
+
+  .tier-E {
+    background-color: $color-tier-E;
+    color: $dark-foreground;
+  }
+  
+  .tier-D {
+    background-color: $color-tier-D;
+    color: $dark-foreground;
+  }
+
+  .tier-C {
+    background-color: $color-tier-C;
+    color: $light-foreground;
+  }
+  
+  .tier-B {
+    background-color: $color-tier-B;
+    color: $light-foreground;
+  }
+
+  .tier-A {
+    background-color: $color-tier-A;
+    color: $dark-foreground;
+  }
+
+  .tier-S {
+    background-color: $color-tier-S;
+    color: $dark-foreground;
+  }
+
+  .tier-extra {
+    background-color: $color-tier-extra;
+    color: $light-foreground;
+  }
+</style>
