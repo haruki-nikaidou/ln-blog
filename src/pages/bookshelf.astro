@@ -3,8 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import BookshelfSearch from '../components/BookshelfSearch.svelte';
 import { novels } from '../utils/novels';
 import { sortNovelsByHiragana } from '../utils/sorting';
+import { getCollection } from 'astro:content';
 
 const sortedNovels = sortNovelsByHiragana(novels);
+const allTags = (await getCollection('tag')).map(tag => tag.data);
 ---
 
 <Layout 
@@ -19,7 +21,7 @@ const sortedNovels = sortNovelsByHiragana(novels);
       </p>
     </header>
 
-    <BookshelfSearch novels={sortedNovels} client:load />
+    <BookshelfSearch novels={sortedNovels} allTags={allTags} client:load />
   </div>
 </Layout>
 

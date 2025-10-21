@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import NovelCard from '../../../components/NovelCard.astro';
+import NovelCard from '../../../components/NovelCard.svelte';
 import { getCollection, render } from 'astro:content';
 import { getNovelsByTag } from '../../../utils/novels';
 import '../../../styles/markdown.scss';
@@ -16,6 +16,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const novelsWithTag = getNovelsByTag(entry.data.id);
+const allTags = (await getCollection('tag')).map(tag => tag.data);
 
 const categoryText = {
   majorCategory: '主要カテゴリ',
@@ -49,7 +50,7 @@ const categoryText = {
         <h2>このタグの作品 ({novelsWithTag.length})</h2>
         <div class="novels-grid">
           {novelsWithTag.map((novel) => (
-            <NovelCard novel={novel} />
+            <NovelCard novel={novel} allTags={allTags} />
           ))}
         </div>
       </section>

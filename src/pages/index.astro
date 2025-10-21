@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import NovelCard from '../components/NovelCard.astro';
+import NovelCard from '../components/NovelCard.svelte';
 import { getCollection } from 'astro:content';
 import { novels } from '../utils/novels';
 import { sortNovelsByHiragana } from '../utils/sorting';
@@ -21,6 +21,9 @@ const latestBlogs = allBlogs
 // Get recently added novels (last 4)
 const sortedNovels = sortNovelsByHiragana(novels);
 const recentNovels = sortedNovels.slice(0, 4);
+
+// Get all tags for NovelCard
+const allTags = (await getCollection('tag')).map(tag => tag.data);
 ---
 
 <Layout title="ホーム" description="ライトノベル書評サイト「エウレカの本棚」へようこそ">
@@ -36,7 +39,7 @@ const recentNovels = sortedNovels.slice(0, 4);
       <h2>最近追加された作品</h2>
       <div class="novels-grid">
         {recentNovels.map((novel) => (
-          <NovelCard novel={novel} />
+          <NovelCard novel={novel} allTags={allTags} />
         ))}
       </div>
     </section>

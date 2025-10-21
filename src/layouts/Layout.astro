@@ -43,7 +43,7 @@ const fullTitle = title === 'エウレカの本棚' ? title : `${title} | エウ
 		</main>
 		<footer class="site-footer">
 			<div class="container">
-				<p>&copy; 2024 エウレカの本棚. All rights reserved.</p>
+				<p>&copy; {new Date().getFullYear()} エウレカの本棚. All rights reserved.</p>
 			</div>
 		</footer>
 	</body>
@@ -59,11 +59,10 @@ const fullTitle = title === 'エウレカの本棚' ? title : `${title} | エウ
 
 	.site-footer {
 		background-color: var(--color-primary);
-		color: var(--color-secondary);
+		color: var(--color-text);
 		padding: $spacing-xl 0;
 		margin-top: $spacing-2xl;
 		text-align: center;
-		border-top: 2px solid var(--color-accent);
 
 		p {
 			margin: 0;

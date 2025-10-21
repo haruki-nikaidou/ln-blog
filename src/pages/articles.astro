@@ -1,23 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-const allBlogs = await getCollection('blog');
+const allBlogs = await getCollection("blog");
 
 // Separate pinned and regular blogs
 const pinnedBlogs = allBlogs
-  .filter(blog => blog.data.isPinned)
+  .filter((blog) => blog.data.isPinned)
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
 const regularBlogs = allBlogs
-  .filter(blog => !blog.data.isPinned)
+  .filter((blog) => !blog.data.isPinned)
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 ---
 
-<Layout 
-  title="記事一覧" 
-  description="ブログ記事の一覧"
->
+<Layout title="記事一覧" description="ブログ記事の一覧">
   <div class="container">
     <header class="page-header">
       <h1>記事一覧</h1>
@@ -26,64 +23,68 @@ const regularBlogs = allBlogs
       </p>
     </header>
 
-    {pinnedBlogs.length > 0 && (
-      <section class="pinned-section">
-        <h2>📌 固定記事</h2>
-        <div class="blogs-list">
-          {pinnedBlogs.map((blog) => (
-            <article class="blog-item pinned">
-              <a href={`/blog/${blog.id}`}>
-                <h3>{blog.data.title}</h3>
-              </a>
-              <p class="description">{blog.data.description}</p>
-              <div class="meta">
-                <time datetime={blog.data.publishedAt.toISOString()}>
-                  {blog.data.publishedAt.toLocaleDateString('ja-JP')}
-                </time>
-                {blog.data.updatedAt && (
-                  <span class="updated">
-                    更新: {blog.data.updatedAt.toLocaleDateString('ja-JP')}
-                  </span>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    )}
+    {
+      pinnedBlogs.length > 0 && (
+        <section class="pinned-section">
+          <h2>固定記事</h2>
+          <div class="blogs-list">
+            {pinnedBlogs.map((blog) => (
+              <article class="blog-item pinned">
+                <a href={`/blog/${blog.id}`}>
+                  <h3>{blog.data.title}</h3>
+                </a>
+                <p class="description">{blog.data.description}</p>
+                <div class="meta">
+                  <time datetime={blog.data.publishedAt.toISOString()}>
+                    {blog.data.publishedAt.toLocaleDateString("ja-JP")}
+                  </time>
+                  {blog.data.updatedAt && (
+                    <span class="updated">
+                      更新: {blog.data.updatedAt.toLocaleDateString("ja-JP")}
+                    </span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )
+    }
 
     <section class="regular-section">
       <h2>記事</h2>
-      {regularBlogs.length > 0 ? (
-        <div class="blogs-list">
-          {regularBlogs.map((blog) => (
-            <article class="blog-item">
-              <a href={`/blog/${blog.id}`}>
-                <h3>{blog.data.title}</h3>
-              </a>
-              <p class="description">{blog.data.description}</p>
-              <div class="meta">
-                <time datetime={blog.data.publishedAt.toISOString()}>
-                  {blog.data.publishedAt.toLocaleDateString('ja-JP')}
-                </time>
-                {blog.data.updatedAt && (
-                  <span class="updated">
-                    更新: {blog.data.updatedAt.toLocaleDateString('ja-JP')}
-                  </span>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <p>記事はまだありません。</p>
-      )}
+      {
+        regularBlogs.length > 0 ? (
+          <div class="blogs-list">
+            {regularBlogs.map((blog) => (
+              <article class="blog-item">
+                <a href={`/blog/${blog.id}`}>
+                  <h3>{blog.data.title}</h3>
+                </a>
+                <p class="description">{blog.data.description}</p>
+                <div class="meta">
+                  <time datetime={blog.data.publishedAt.toISOString()}>
+                    {blog.data.publishedAt.toLocaleDateString("ja-JP")}
+                  </time>
+                  {blog.data.updatedAt && (
+                    <span>
+                      更新: {blog.data.updatedAt.toLocaleDateString("ja-JP")}
+                    </span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p>記事はまだありません。</p>
+        )
+      }
     </section>
   </div>
 </Layout>
 
 <style lang="scss">
-  @use '../styles/variables' as *;
+  @use "../styles/variables" as *;
 
   .page-header {
     margin-bottom: $spacing-2xl;
@@ -99,7 +100,8 @@ const regularBlogs = allBlogs
     }
   }
 
-  .pinned-section, .regular-section {
+  .pinned-section,
+  .regular-section {
     margin-bottom: $spacing-2xl;
 
     h2 {
@@ -118,14 +120,15 @@ const regularBlogs = allBlogs
 
   .blog-item {
     padding: $spacing-lg;
-    background-color: var(--color-secondary);
+    background-color: var(--color-card);
     border-radius: $radius-md;
     border: 1px solid var(--color-border);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
 
     &.pinned {
-      border-color: var(--color-highlight);
-      border-width: 2px;
+      border-color: var(--color-primary);
     }
 
     &:hover {
@@ -139,10 +142,6 @@ const regularBlogs = allBlogs
       a {
         color: var(--color-text);
         text-decoration: none;
-
-        &:hover {
-          color: var(--color-highlight);
-        }
       }
     }
 
@@ -158,11 +157,6 @@ const regularBlogs = allBlogs
       display: flex;
       gap: $spacing-md;
       flex-wrap: wrap;
-
-      .updated {
-        font-style: italic;
-      }
     }
   }
 </style>
-
