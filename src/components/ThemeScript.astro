@@ -2,26 +2,26 @@
 
 ---
 <script is:inline>
-    (() => {
-      // If you ever change the key, bump it here.
-      const KEY = '\u{1090C}theme';
-      try {
-        const stored = localStorage.getItem(KEY);
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = stored ?? (prefersDark ? 'dark' : 'light');
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-        // Hint browsers for proper form controls/scrollbars
-        document.documentElement.style.colorScheme = theme;
-      } catch {
-        // If localStorage is blocked, fall back to media query
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.classList.add('dark');
-          document.documentElement.style.colorScheme = 'dark';
-        }
-      }
-    })();
+  const isBrowser = typeof localStorage !== "undefined";
+  const getThemePreference = () => {
+    if (isBrowser && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+  if (isBrowser) {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
 </script>
