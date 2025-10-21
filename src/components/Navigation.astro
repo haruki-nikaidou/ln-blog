@@ -1,68 +1,69 @@
 ---
-import ThemeToggle from './ThemeToggle.svelte';
+import ThemeToggle from "./ThemeToggle.svelte";
 
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { href: '/', label: 'ホーム' },
-  { href: '/bookshelf', label: '本棚' },
-  { href: '/articles', label: '記事' },
+  { href: "/", label: "ホーム" },
+  { href: "/bookshelf", label: "本棚" },
+  { href: "/articles", label: "記事" },
 ];
 ---
 
-<nav class="navigation">
-  <div class="container">
-    <div class="nav-content">
-      <a href="/" class="site-title">エウレカの本棚</a>
-      
-      <div class="nav-links">
-        {navItems.map((item) => (
-          <a 
-            href={item.href} 
-            class:list={['nav-link', { active: currentPath === item.href }]}
+<header>
+  <nav class="navigation">
+    <a href="/" class="site-title">エウレカの本棚</a>
+    <div class="nav-links">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={["nav-link", { active: currentPath === item.href }]}
           >
             {item.label}
           </a>
-        ))}
-      </div>
-      
-      <div class="theme-toggle-wrapper">
-        <ThemeToggle client:load />
-      </div>
+        ))
+      }
     </div>
-  </div>
-</nav>
+
+    <div class="theme-toggle-wrapper">
+      <ThemeToggle client:load />
+    </div>
+  </nav>
+</header>
 
 <style lang="scss">
-  @use '../styles/variables' as *;
+  @use "../styles/variables" as *;
 
-  .navigation {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    padding: $spacing-md 0;
-    border-bottom: 2px solid var(--color-accent);
+  header {
+    background-color: var(--color-card);
+    color: var(--color-text);
+    padding: $spacing-md $spacing-lg;
+    border-bottom: 2px solid var(--color-border);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: $shadow-md;
   }
 
-  .nav-content {
+  .navigation {
+    max-width: $wide;
+    margin: 0 auto;
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     gap: $spacing-lg;
   }
 
   .site-title {
     font-size: $font-size-xl;
     font-weight: 700;
-    color: var(--color-secondary);
+    color: var(--color-primary);
     text-decoration: none;
     white-space: nowrap;
 
     &:hover {
-      color: var(--color-accent);
+      color: var(--color-highlight);
       text-decoration: none;
     }
   }
@@ -72,6 +73,7 @@ const navItems = [
     gap: $spacing-lg;
     flex: 1;
     justify-content: center;
+    min-width: 256px;
 
     @media (max-width: $mobile) {
       gap: $spacing-sm;
@@ -79,7 +81,7 @@ const navItems = [
   }
 
   .nav-link {
-    color: var(--color-secondary);
+    color: var(--color-text);
     text-decoration: none;
     padding: $spacing-sm $spacing-md;
     border-radius: $radius-md;
@@ -88,12 +90,12 @@ const navItems = [
 
     &:hover {
       background-color: var(--color-highlight);
-      color: var(--color-secondary);
+      color: var(--color-primary);
       text-decoration: none;
     }
 
     &.active {
-      background-color: var(--color-accent);
+      background-color: var(--color-highlight);
       color: var(--color-primary);
     }
   }
@@ -103,4 +105,3 @@ const navItems = [
     align-items: center;
   }
 </style>
-

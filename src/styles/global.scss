@@ -5,23 +5,23 @@
   // Light mode (default)
   --color-primary: #{$light-primary};
   --color-secondary: #{$light-secondary};
-  --color-accent: #{$light-accent};
   --color-highlight: #{$light-highlight};
-  --color-bg: #ffffff;
-  --color-text: #{$light-primary};
-  --color-text-secondary: #{$light-highlight};
-  --color-border: #{$light-accent};
+  --color-bg: #{$light-background};
+  --color-card: #{$light-card};
+  --color-text: #{$light-foreground};
+  --color-text-secondary: #{$light-muted-foreground};
+  --color-border: #{$light-border};
 }
 
 .dark {
-  --color-primary: #{$dark-highlight};
+  --color-primary: #{$dark-primary};
   --color-secondary: #{$dark-secondary};
-  --color-accent: #{$dark-accent};
-  --color-highlight: #{$dark-primary};
-  --color-bg: #1a1614;
-  --color-text: #e8e6e3;
-  --color-text-secondary: #{$dark-accent};
-  --color-border: #{$dark-accent};
+  --color-highlight: #{$dark-highlight};
+  --color-bg: #{$dark-background};
+  --color-card: #{$dark-card};
+  --color-text: #{$dark-foreground};
+  --color-text-secondary: #{$dark-muted-foreground};
+  --color-border: #{$dark-border};
 }
 
 * {

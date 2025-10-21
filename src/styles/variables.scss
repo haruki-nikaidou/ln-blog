@@ -1,14 +1,22 @@
 // Light mode colors (green palette)
 $light-primary: #06402B;
-$light-secondary: #E3FFF5;
-$light-accent: #96D9C0;
-$light-highlight: #51A687;
+$light-secondary: #156c8f;
+$light-background: #e9f8ea;
+$light-foreground: #010f03;
+$light-card: #b1fac3;
+$light-muted-foreground: #55615c;
+$light-border: #09240D;
+$light-highlight: #7ed1b4;
 
 // Dark mode colors (brown palette)
-$dark-primary: #635147;
-$dark-secondary: #4E3F39;
-$dark-accent: #635E47;
-$dark-highlight: #746347;
+$dark-primary: #c27f3c;
+$dark-secondary: #147042;
+$dark-background: #222120;
+$dark-foreground: #f5ecda;
+$dark-card: #302922;
+$dark-muted-foreground: #857e73;
+$dark-border: #c09f53;
+$dark-highlight: #473b28;
 
 // Breakpoints
 $mobile: 640px;

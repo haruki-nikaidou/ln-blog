@@ -50,20 +50,18 @@
 
   .theme-toggle {
     background: transparent;
-    border: 2px solid var(--color-secondary);
+    border: none;
     border-radius: $radius-md;
     padding: $spacing-sm;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-secondary);
+    color: var(--color-text);
     transition: all 0.2s ease;
 
     &:hover {
-      background-color: var(--color-accent);
-      border-color: var(--color-accent);
-      color: var(--color-primary);
+      background-color: var(--color-highlight);
     }
 
     svg {
