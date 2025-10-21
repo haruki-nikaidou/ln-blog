@@ -151,6 +151,11 @@ const allTags = await getCollection("tag");
       border-radius: $radius-lg;
       box-shadow: $shadow-lg;
       margin-bottom: $spacing-lg;
+
+      @media (max-width: $tablet) {
+        max-width: 200px;
+        margin: $spacing-md auto;
+      }
     }
   }
 
