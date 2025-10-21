@@ -1,24 +1,29 @@
 ---
-import type { Novel } from "../utils/types";
+import type { Novel, TagCategory } from "../utils/types";
 import TagLink from "./TagLink.astro";
 import TierMark from "./TierMark.astro";
-
+import { compareTagCategories } from "../utils/sorting";
+import { getCollection } from "astro:content";
 interface Props {
   novel: Novel;
 }
 
 const { novel } = Astro.props;
+
+const allTags = await getCollection("tag");
 ---
 
 <article class="novel-card">
   <a href={`/novel/${novel.id}`} class="novel-link">
     <div class="cover-wrapper">
       <img src={novel.cover} alt={`${novel.name}の表紙`} class="cover" />
-      {novel.ratingTier && (
-        <div class="rating-badge">
-          <TierMark tier={novel.ratingTier} />
-        </div>
-      )}
+      {
+        novel.ratingTier && (
+          <div class="rating-badge">
+            <TierMark tier={novel.ratingTier} />
+          </div>
+        )
+      }
     </div>
   </a>
 
@@ -41,9 +46,23 @@ const { novel } = Astro.props;
     {
       novel.tags.length > 0 && (
         <div class="tags">
-          {novel.tags.map((tagId) => (
-            <TagLink tagId={tagId} />
-          ))}
+          {novel.tags
+            .sort((a, b) => {
+              const tagA = allTags.find((tag) => tag.data.id === a)?.data
+                .category;
+              if (!tagA) {
+                throw new Error(`Tag with id ${a} not found`);
+              }
+              const tagB = allTags.find((tag) => tag.data.id === b)?.data
+                .category;
+              if (!tagB) {
+                throw new Error(`Tag with id ${b} not found`);
+              }
+              return compareTagCategories(tagA, tagB);
+            })
+            .map((tagId) => (
+              <TagLink tagId={tagId} />
+            ))}
         </div>
       )
     }

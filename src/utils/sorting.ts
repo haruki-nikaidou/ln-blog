@@ -1,4 +1,4 @@
-import type { Novel } from './types';
+import type { Novel, TagCategory } from './types';
 
 /**
  * Sort novels by hiragana reading in Japanese aiueo order
@@ -51,3 +51,22 @@ export function getHiraganaSection(char: string): string {
   return sections[char] || 'その他';
 }
 
+/**
+ * Priority order for tag categories
+ */
+const TAG_CATEGORY_PRIORITY: Record<TagCategory, number> = {
+  'majorCategory': 0,
+  'minorCategory': 1,
+  'character': 2,
+  'publisher': 3,
+  'technique': 4,
+  'pattern': 5,
+  'review': 6,
+};
+
+/**
+ * Compare function for sorting TagCategory values
+ */
+export function compareTagCategories(a: TagCategory, b: TagCategory): number {
+  return TAG_CATEGORY_PRIORITY[a] - TAG_CATEGORY_PRIORITY[b];
+}
