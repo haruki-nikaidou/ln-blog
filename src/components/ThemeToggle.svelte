@@ -46,7 +46,7 @@
 </button>
 
 <style lang="scss">
-  @import '../styles/variables.scss';
+  @use '../styles/variables' as *;
 
   .theme-toggle {
     background: transparent;

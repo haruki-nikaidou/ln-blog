@@ -11,7 +11,7 @@ const { tagId } = Astro.props;
 </a>
 
 <style lang="scss">
-  @import '../styles/variables.scss';
+  @use '../styles/variables' as *;
 
   .tag-link {
     display: inline-block;

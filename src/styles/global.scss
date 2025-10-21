@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables' as *;
 
 // CSS Custom Properties for theming
 :root {

@@ -91,7 +91,7 @@
 {/if}
 
 <style lang="scss">
-  @import '../styles/variables.scss';
+  @use '../styles/variables' as *;
 
   .search-container {
     margin-bottom: $spacing-2xl;
