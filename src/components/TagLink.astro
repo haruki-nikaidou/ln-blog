@@ -1,22 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
+import type { TagCategory } from '../utils/types';
 
 interface Props {
   tagId: string;
+  category: TagCategory;
+  name: string;
 }
 
-const { tagId } = Astro.props;
+const { tagId, category, name } = Astro.props;
 
-const allTags = await getCollection('tag');
-const tag = allTags.find((tag) => tag.data.id === tagId);
-
-if (!tag) {
-  throw new Error(`Tag with id ${tagId} not found`);
-}
 ---
 
-<a href={`/tags/intro/${tagId}`} class={`tag-category-${tag.data.category}`}>
-  {tag.data.name}
+<a href={`/tags/intro/${tagId}`} class={`tag-category-${category}`}>
+  {name}
 </a>
 
 <style lang="scss">

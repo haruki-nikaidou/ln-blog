@@ -47,21 +47,16 @@ const allTags = await getCollection("tag");
       novel.tags.length > 0 && (
         <div class="tags">
           {novel.tags
-            .sort((a, b) => {
-              const tagA = allTags.find((tag) => tag.data.id === a)?.data
-                .category;
-              if (!tagA) {
-                throw new Error(`Tag with id ${a} not found`);
+            .map((tagId) => {
+              const tag = allTags.find((tag) => tag.data.id === tagId)?.data;
+              if (!tag) {
+                throw new Error(`Tag with id ${tagId} not found`);
               }
-              const tagB = allTags.find((tag) => tag.data.id === b)?.data
-                .category;
-              if (!tagB) {
-                throw new Error(`Tag with id ${b} not found`);
-              }
-              return compareTagCategories(tagA, tagB);
+              return tag;
             })
-            .map((tagId) => (
-              <TagLink tagId={tagId} />
+            .sort((a, b) => compareTagCategories(a.category, b.category))
+            .map((tag) => (
+              <TagLink tagId={tag.id} category={tag.category} name={tag.name} />
             ))}
         </div>
       )
