@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="ページが見つかりません" 
+  description="お探しのページは見つかりませんでした"
+>
+  <div class="container-narrow error-page">
+    <h1>404</h1>
+    <p class="error-message">お探しのページは見つかりませんでした</p>
+    <p class="error-description">
+      URLが間違っているか、ページが移動または削除された可能性があります。
+    </p>
+    <div class="actions">
+      <a href="/" class="button-primary">ホームに戻る</a>
+      <a href="/bookshelf" class="button-secondary">本棚を見る</a>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @import '../styles/variables.scss';
+
+  .error-page {
+    text-align: center;
+    padding: $spacing-2xl * 2 $spacing-lg;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      font-size: $font-size-3xl * 3;
+      color: var(--color-highlight);
+      margin-bottom: $spacing-lg;
+    }
+
+    .error-message {
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-md;
+      color: var(--color-text);
+    }
+
+    .error-description {
+      font-size: $font-size-lg;
+      color: var(--color-text-secondary);
+      margin-bottom: $spacing-2xl;
+      max-width: 600px;
+    }
+
+    .actions {
+      display: flex;
+      gap: $spacing-lg;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .button-primary, .button-secondary {
+      display: inline-block;
+      padding: $spacing-md $spacing-xl;
+      border-radius: $radius-md;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .button-primary {
+      background-color: var(--color-highlight);
+      color: var(--color-secondary);
+
+      &:hover {
+        background-color: var(--color-accent);
+        color: var(--color-text);
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+      }
+    }
+
+    .button-secondary {
+      background-color: transparent;
+      color: var(--color-highlight);
+      border: 2px solid var(--color-highlight);
+
+      &:hover {
+        background-color: var(--color-highlight);
+        color: var(--color-secondary);
+        text-decoration: none;
+        transform: translateY(-2px);
+      }
+    }
+  }
+</style>
+

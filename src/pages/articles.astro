@@ -1,0 +1,168 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allBlogs = await getCollection('blog');
+
+// Separate pinned and regular blogs
+const pinnedBlogs = allBlogs
+  .filter(blog => blog.data.isPinned)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const regularBlogs = allBlogs
+  .filter(blog => !blog.data.isPinned)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+---
+
+<Layout 
+  title="記事一覧" 
+  description="ブログ記事の一覧"
+>
+  <div class="container">
+    <header class="page-header">
+      <h1>記事一覧</h1>
+      <p class="page-description">
+        ライトノベルに関する雑記や考察記事を掲載しています。
+      </p>
+    </header>
+
+    {pinnedBlogs.length > 0 && (
+      <section class="pinned-section">
+        <h2>📌 固定記事</h2>
+        <div class="blogs-list">
+          {pinnedBlogs.map((blog) => (
+            <article class="blog-item pinned">
+              <a href={`/blog/${blog.id}`}>
+                <h3>{blog.data.title}</h3>
+              </a>
+              <p class="description">{blog.data.description}</p>
+              <div class="meta">
+                <time datetime={blog.data.publishedAt.toISOString()}>
+                  {blog.data.publishedAt.toLocaleDateString('ja-JP')}
+                </time>
+                {blog.data.updatedAt && (
+                  <span class="updated">
+                    更新: {blog.data.updatedAt.toLocaleDateString('ja-JP')}
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="regular-section">
+      <h2>記事</h2>
+      {regularBlogs.length > 0 ? (
+        <div class="blogs-list">
+          {regularBlogs.map((blog) => (
+            <article class="blog-item">
+              <a href={`/blog/${blog.id}`}>
+                <h3>{blog.data.title}</h3>
+              </a>
+              <p class="description">{blog.data.description}</p>
+              <div class="meta">
+                <time datetime={blog.data.publishedAt.toISOString()}>
+                  {blog.data.publishedAt.toLocaleDateString('ja-JP')}
+                </time>
+                {blog.data.updatedAt && (
+                  <span class="updated">
+                    更新: {blog.data.updatedAt.toLocaleDateString('ja-JP')}
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>記事はまだありません。</p>
+      )}
+    </section>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @import '../styles/variables.scss';
+
+  .page-header {
+    margin-bottom: $spacing-2xl;
+
+    h1 {
+      font-size: $font-size-3xl;
+      margin-bottom: $spacing-md;
+    }
+
+    .page-description {
+      font-size: $font-size-lg;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .pinned-section, .regular-section {
+    margin-bottom: $spacing-2xl;
+
+    h2 {
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-xl;
+      padding-bottom: $spacing-sm;
+      border-bottom: 2px solid var(--color-border);
+    }
+  }
+
+  .blogs-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  .blog-item {
+    padding: $spacing-lg;
+    background-color: var(--color-secondary);
+    border-radius: $radius-md;
+    border: 1px solid var(--color-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &.pinned {
+      border-color: var(--color-highlight);
+      border-width: 2px;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    h3 {
+      margin-bottom: $spacing-sm;
+
+      a {
+        color: var(--color-text);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--color-highlight);
+        }
+      }
+    }
+
+    .description {
+      color: var(--color-text-secondary);
+      margin-bottom: $spacing-md;
+      line-height: 1.6;
+    }
+
+    .meta {
+      font-size: $font-size-sm;
+      color: var(--color-text-secondary);
+      display: flex;
+      gap: $spacing-md;
+      flex-wrap: wrap;
+
+      .updated {
+        font-style: italic;
+      }
+    }
+  }
+</style>
+

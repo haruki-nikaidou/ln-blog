@@ -1,46 +1,114 @@
-# Astro Starter Kit: Basics
+# エウレカの本棚
 
-```sh
-pnpm create astro@latest -- --template basics
+ライトノベル書評サイト
+
+## Tech Stack
+
+- **Astro** - Static site generator
+- **Svelte** - Interactive components
+- **TypeScript** - Type safety
+- **SCSS** - Styling
+- **Fuse.js** - Client-side search
+
+## Features
+
+- 📚 **本棚 (Bookshelf)**: すべての作品をあいうえお順で表示、検索機能付き
+- ✍️ **レビュー (Reviews)**: 詳細な書評記事
+- 🏷️ **タグ (Tags)**: ジャンルやテーマ別の分類
+- 📝 **ブログ (Blog)**: ライトノベルに関する雑記
+- 🌓 **ダークモード**: グリーン（ライト）とブラウン（ダーク）のテーマ
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── content/               # Content collections (outside src)
+│   ├── blog/             # Blog articles
+│   ├── review/           # Review articles
+│   ├── tag/              # Tag introduction pages
+│   └── novels.json       # Novel metadata
+├── src/
+│   ├── components/       # Astro & Svelte components
+│   ├── layouts/          # Page layouts
+│   ├── pages/            # Route pages
+│   ├── styles/           # Global SCSS styles
+│   ├── utils/            # Utility functions
+│   └── content/
+│       └── config.ts     # Content collections schema
+└── public/               # Static assets
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Development
 
-## 🧞 Commands
+```bash
+# Install dependencies
+pnpm install
 
-All commands are run from the root of the project, from a terminal:
+# Start dev server
+pnpm run dev
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+# Build for production
+pnpm run build
 
-## 👀 Want to learn more?
+# Preview production build
+pnpm run preview
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Content Collections
+
+### Novels
+Location: `content/novels.json`
+
+Contains metadata for all light novels including:
+- Name, hiragana reading, authors
+- Alternative names, tags
+- Rating tier (F to S+)
+- Cover image URL
+
+### Reviews
+Location: `content/review/{novel-id}/{sort-number}.md`
+
+Review articles with frontmatter:
+- `novelId`, `title`, `sortNumber`
+- `publishedAt`, `updatedAt`
+- `level`: spoilerSafe | spoilerAlert | techniqueReview
+
+### Tags
+Location: `content/tag/{id}.md`
+
+Tag introduction pages with frontmatter:
+- `id`, `name`
+- `category`: majorCategory | minorCategory | character | technique | pattern | publisher | review
+
+### Blog
+Location: `content/blog/{slug}.md`
+
+General articles with frontmatter:
+- `title`, `description`
+- `publishedAt`, `updatedAt`
+- `isPinned`: boolean
+
+## Navigation
+
+- **ホーム**: Latest reviews, novels, and blog posts
+- **本棚**: All novels with search functionality
+- **記事**: Blog articles list
+
+## Color Palette
+
+### Light Mode (Green)
+- Primary: #06402B
+- Secondary: #E3FFF5
+- Accent: #96D9C0
+- Highlight: #51A687
+
+### Dark Mode (Brown)
+- Primary: #635147
+- Secondary: #4E3F39
+- Accent: #635E47
+- Highlight: #746347
+
+## Typography
+
+- Font: Noto Serif JP (Google Fonts)
+- Language: Japanese (ja)

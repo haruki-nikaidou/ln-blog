@@ -1,0 +1,285 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TagLink from '../../components/TagLink.astro';
+import { getCollection } from 'astro:content';
+import { novels, getNovelById } from '../../utils/novels';
+
+export async function getStaticPaths() {
+  return novels.map((novel) => ({
+    params: { id: novel.id },
+  }));
+}
+
+const { id } = Astro.params;
+const novel = getNovelById(id!);
+
+if (!novel) {
+  return Astro.redirect('/404');
+}
+
+// Get all reviews for this novel
+const allReviews = await getCollection('review');
+const novelReviews = allReviews
+  .filter((review) => review.data.novelId === novel.id)
+  .sort((a, b) => a.data.sortNumber - b.data.sortNumber);
+---
+
+<Layout 
+  title={novel.name} 
+  description={`${novel.name}の詳細情報とレビュー`}
+>
+  <div class="container-narrow">
+    <article class="novel-detail">
+      <div class="novel-header">
+        <div class="cover-section">
+          <img src={novel.cover} alt={`${novel.name}の表紙`} class="cover" />
+          {novel.ratingTier && (
+            <div class="rating-display">
+              <span class="rating-label">評価:</span>
+              <span class="rating-tier">{novel.ratingTier}</span>
+            </div>
+          )}
+        </div>
+
+        <div class="info-section">
+          <h1>{novel.name}</h1>
+          
+          <div class="meta-info">
+            <div class="meta-item">
+              <span class="meta-label">読み:</span>
+              <span class="meta-value">{novel.hiragana}</span>
+            </div>
+            
+            <div class="meta-item">
+              <span class="meta-label">著者:</span>
+              <span class="meta-value">{novel.authors.writer}</span>
+            </div>
+            
+            <div class="meta-item">
+              <span class="meta-label">イラスト:</span>
+              <span class="meta-value">{novel.authors.illustrator}</span>
+            </div>
+            
+            {novel.alterName.length > 0 && (
+              <div class="meta-item">
+                <span class="meta-label">別名:</span>
+                <span class="meta-value">{novel.alterName.join(', ')}</span>
+              </div>
+            )}
+          </div>
+
+          {novel.tags.length > 0 && (
+            <div class="tags-section">
+              <h3>タグ</h3>
+              <div class="tags">
+                {novel.tags.map((tagId) => (
+                  <TagLink tagId={tagId} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {novelReviews.length > 0 && (
+        <section class="reviews-section">
+          <h2>レビュー</h2>
+          <div class="reviews-list">
+            {novelReviews.map((review) => (
+              <article class="review-item">
+                <a href={`/review/${novel.id}/${review.data.sortNumber}`}>
+                  <h3>{review.data.title}</h3>
+                </a>
+                <div class="review-meta">
+                  <time datetime={review.data.publishedAt.toISOString()}>
+                    {review.data.publishedAt.toLocaleDateString('ja-JP')}
+                  </time>
+                  <span class="level-badge">{
+                    review.data.level === 'spoilerSafe' ? 'ネタバレなし' :
+                    review.data.level === 'techniqueReview' ? '技法レビュー' :
+                    'ネタバレあり'
+                  }</span>
+                  {review.data.updatedAt && (
+                    <span class="updated">
+                      更新: {review.data.updatedAt.toLocaleDateString('ja-JP')}
+                    </span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {novelReviews.length === 0 && (
+        <p class="no-reviews">この作品のレビューはまだありません。</p>
+      )}
+    </article>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @import '../../styles/variables.scss';
+
+  .novel-detail {
+    padding: $spacing-xl 0;
+  }
+
+  .novel-header {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: $spacing-2xl;
+    margin-bottom: $spacing-2xl * 1.5;
+
+    @media (max-width: $tablet) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cover-section {
+    .cover {
+      width: 100%;
+      border-radius: $radius-lg;
+      box-shadow: $shadow-lg;
+      margin-bottom: $spacing-lg;
+    }
+  }
+
+  .rating-display {
+    background-color: var(--color-secondary);
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    text-align: center;
+    border: 1px solid var(--color-border);
+
+    .rating-label {
+      display: block;
+      font-size: $font-size-sm;
+      color: var(--color-text-secondary);
+      margin-bottom: $spacing-xs;
+    }
+
+    .rating-tier {
+      display: block;
+      font-size: $font-size-2xl;
+      font-weight: 700;
+      color: var(--color-highlight);
+    }
+  }
+
+  .info-section {
+    h1 {
+      font-size: $font-size-3xl;
+      margin-bottom: $spacing-xl;
+      color: var(--color-text);
+    }
+  }
+
+  .meta-info {
+    background-color: var(--color-secondary);
+    padding: $spacing-lg;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-xl;
+    border: 1px solid var(--color-border);
+  }
+
+  .meta-item {
+    margin-bottom: $spacing-md;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .meta-label {
+      font-weight: 600;
+      color: var(--color-text);
+      margin-right: $spacing-sm;
+    }
+
+    .meta-value {
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .tags-section {
+    h3 {
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-md;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+    }
+  }
+
+  .reviews-section {
+    h2 {
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-xl;
+      padding-bottom: $spacing-sm;
+      border-bottom: 2px solid var(--color-border);
+    }
+  }
+
+  .reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  .review-item {
+    padding: $spacing-lg;
+    background-color: var(--color-secondary);
+    border-radius: $radius-md;
+    border: 1px solid var(--color-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    h3 {
+      margin-bottom: $spacing-sm;
+
+      a {
+        color: var(--color-text);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--color-highlight);
+        }
+      }
+    }
+
+    .review-meta {
+      font-size: $font-size-sm;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: $spacing-md;
+      flex-wrap: wrap;
+
+      .level-badge {
+        padding: $spacing-xs $spacing-sm;
+        background-color: var(--color-accent);
+        border-radius: $radius-sm;
+      }
+
+      .updated {
+        font-style: italic;
+      }
+    }
+  }
+
+  .no-reviews {
+    text-align: center;
+    padding: $spacing-2xl;
+    color: var(--color-text-secondary);
+    background-color: var(--color-secondary);
+    border-radius: $radius-md;
+  }
+</style>
+

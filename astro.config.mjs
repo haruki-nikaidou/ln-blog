@@ -9,5 +9,8 @@ export default defineConfig({
     plugins: []
   },
 
-  integrations: [svelte()]
+  integrations: [svelte()],
+  
+  // Enable content collections
+  experimental: {}
 });

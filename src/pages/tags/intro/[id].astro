@@ -1,0 +1,106 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import NovelCard from '../../../components/NovelCard.astro';
+import { getCollection, render } from 'astro:content';
+import { getNovelsByTag } from '../../../utils/novels';
+import '../../../styles/markdown.scss';
+
+export async function getStaticPaths() {
+  const tags = await getCollection('tag');
+  return tags.map((tag) => ({
+    params: { id: tag.data.id },
+    props: { entry: tag },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const novelsWithTag = getNovelsByTag(entry.data.id);
+
+const categoryText = {
+  majorCategory: '主要カテゴリ',
+  minorCategory: '副次カテゴリ',
+  character: 'キャラクター',
+  technique: '技法',
+  pattern: 'パターン',
+  publisher: '出版社',
+  review: 'レビュー',
+};
+---
+
+<Layout 
+  title={entry.data.name} 
+  description={`タグ「${entry.data.name}」の説明と関連作品`}
+>
+  <article class="container-narrow tag-article">
+    <header class="article-header">
+      <div class="category-badge">
+        {categoryText[entry.data.category]}
+      </div>
+      <h1>{entry.data.name}</h1>
+    </header>
+
+    <div class="markdown-content">
+      <Content />
+    </div>
+
+    {novelsWithTag.length > 0 && (
+      <section class="related-novels">
+        <h2>このタグの作品 ({novelsWithTag.length})</h2>
+        <div class="novels-grid">
+          {novelsWithTag.map((novel) => (
+            <NovelCard novel={novel} />
+          ))}
+        </div>
+      </section>
+    )}
+  </article>
+</Layout>
+
+<style lang="scss">
+  @import '../../../styles/variables.scss';
+
+  .tag-article {
+    padding: $spacing-2xl 0;
+  }
+
+  .article-header {
+    margin-bottom: $spacing-2xl;
+    padding-bottom: $spacing-xl;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-md;
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    margin-bottom: $spacing-md;
+  }
+
+  h1 {
+    font-size: $font-size-3xl;
+    margin-bottom: 0;
+  }
+
+  .related-novels {
+    margin-top: $spacing-2xl * 1.5;
+    padding-top: $spacing-xl;
+    border-top: 2px solid var(--color-border);
+
+    h2 {
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-xl;
+    }
+  }
+
+  .novels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: $spacing-xl;
+  }
+</style>
+

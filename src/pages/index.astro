@@ -1,11 +1,210 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import NovelCard from '../components/NovelCard.astro';
+import { getCollection } from 'astro:content';
+import { novels } from '../utils/novels';
+import { sortNovelsByHiragana } from '../utils/sorting';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Get latest reviews
+const allReviews = await getCollection('review');
+const latestReviews = allReviews
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+// Get latest blog articles
+const allBlogs = await getCollection('blog');
+const latestBlogs = allBlogs
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+// Get recently added novels (last 4)
+const sortedNovels = sortNovelsByHiragana(novels);
+const recentNovels = sortedNovels.slice(0, 4);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="ホーム" description="ライトノベル書評サイト「エウレカの本棚」へようこそ">
+  <div class="container">
+    <section class="hero">
+      <h1>エウレカの本棚</h1>
+      <p class="hero-description">
+        ライトノベルの魅力を深く掘り下げる書評サイト
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>最新のレビュー</h2>
+      {latestReviews.length > 0 ? (
+        <div class="reviews-list">
+          {latestReviews.map((review) => {
+            const novel = novels.find(n => n.id === review.data.novelId);
+            return (
+              <article class="review-item">
+                <a href={`/review/${review.data.novelId}/${review.data.sortNumber}`}>
+                  <h3>{review.data.title}</h3>
+                </a>
+                {novel && <p class="novel-name">{novel.name}</p>}
+                <p class="meta">
+                  {review.data.publishedAt.toLocaleDateString('ja-JP')}
+                  <span class="level-badge">{
+                    review.data.level === 'spoilerSafe' ? 'ネタバレなし' :
+                    review.data.level === 'techniqueReview' ? '技法レビュー' :
+                    'ネタバレあり'
+                  }</span>
+                </p>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <p>レビューはまだありません。</p>
+      )}
+      <a href="/bookshelf" class="view-more">本棚を見る →</a>
+    </section>
+
+    <section class="section">
+      <h2>最近追加された作品</h2>
+      <div class="novels-grid">
+        {recentNovels.map((novel) => (
+          <NovelCard novel={novel} />
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>最新の記事</h2>
+      {latestBlogs.length > 0 ? (
+        <div class="blogs-list">
+          {latestBlogs.map((blog) => (
+            <article class="blog-item">
+              <a href={`/blog/${blog.id}`}>
+                <h3>{blog.data.title}</h3>
+              </a>
+              <p class="description">{blog.data.description}</p>
+              <p class="meta">
+                {blog.data.publishedAt.toLocaleDateString('ja-JP')}
+              </p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>記事はまだありません。</p>
+      )}
+      <a href="/articles" class="view-more">記事一覧を見る →</a>
+    </section>
+  </div>
 </Layout>
+
+<style lang="scss">
+  @import '../styles/variables.scss';
+
+  .hero {
+    text-align: center;
+    padding: $spacing-2xl 0;
+    margin-bottom: $spacing-2xl;
+
+    h1 {
+      font-size: $font-size-3xl * 1.5;
+      margin-bottom: $spacing-md;
+      color: var(--color-primary);
+    }
+
+    .hero-description {
+      font-size: $font-size-xl;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .section {
+    margin-bottom: $spacing-2xl * 1.5;
+
+    h2 {
+      font-size: $font-size-2xl;
+      margin-bottom: $spacing-xl;
+      padding-bottom: $spacing-sm;
+      border-bottom: 2px solid var(--color-border);
+    }
+  }
+
+  .reviews-list, .blogs-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+  }
+
+  .review-item, .blog-item {
+    padding: $spacing-lg;
+    background-color: var(--color-secondary);
+    border-radius: $radius-md;
+    border: 1px solid var(--color-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    h3 {
+      margin-bottom: $spacing-sm;
+
+      a {
+        color: var(--color-text);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--color-highlight);
+        }
+      }
+    }
+
+    .novel-name {
+      font-size: $font-size-sm;
+      color: var(--color-text-secondary);
+      margin-bottom: $spacing-sm;
+    }
+
+    .description {
+      color: var(--color-text-secondary);
+      margin-bottom: $spacing-sm;
+    }
+
+    .meta {
+      font-size: $font-size-sm;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: $spacing-md;
+    }
+
+    .level-badge {
+      padding: $spacing-xs $spacing-sm;
+      background-color: var(--color-accent);
+      border-radius: $radius-sm;
+      font-size: $font-size-sm;
+    }
+  }
+
+  .novels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: $spacing-xl;
+    margin-bottom: $spacing-xl;
+  }
+
+  .view-more {
+    display: inline-block;
+    padding: $spacing-sm $spacing-lg;
+    background-color: var(--color-highlight);
+    color: var(--color-secondary);
+    border-radius: $radius-md;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--color-accent);
+      color: var(--color-text);
+      text-decoration: none;
+    }
+  }
+</style>

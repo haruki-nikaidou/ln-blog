@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BookshelfSearch from '../components/BookshelfSearch.svelte';
+import { novels } from '../utils/novels';
+import { sortNovelsByHiragana } from '../utils/sorting';
+
+const sortedNovels = sortNovelsByHiragana(novels);
+---
+
+<Layout 
+  title="本棚" 
+  description="すべてのライトノベル作品をあいうえお順で表示"
+>
+  <div class="container">
+    <header class="page-header">
+      <h1>本棚</h1>
+      <p class="page-description">
+        すべての作品をあいうえお順で表示しています。検索機能を使って作品を探すこともできます。
+      </p>
+    </header>
+
+    <BookshelfSearch novels={sortedNovels} client:load />
+  </div>
+</Layout>
+
+<style lang="scss">
+  @import '../styles/variables.scss';
+
+  .page-header {
+    margin-bottom: $spacing-2xl;
+
+    h1 {
+      font-size: $font-size-3xl;
+      margin-bottom: $spacing-md;
+    }
+
+    .page-description {
+      font-size: $font-size-lg;
+      color: var(--color-text-secondary);
+    }
+  }
+</style>
+
