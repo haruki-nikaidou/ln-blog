@@ -5,6 +5,7 @@ import { getCollection } from "astro:content";
 import { novels, getNovelById } from "../../utils/novels";
 import { compareTagCategories } from "../../utils/sorting";
 import ReviewLevelBadge from "../../components/ReviewLevelBadge.astro";
+import TierMark from "../../components/TierMark.astro";
 
 export async function getStaticPaths() {
   return novels.map((novel) => ({
@@ -37,8 +38,12 @@ const allTags = await getCollection("tag");
         </div>
 
         <div class="info-section">
-          <h1>{novel.name}</h1>
-
+          <h1>
+            <TierMark tier={novel.ratingTier} />
+            <span>
+              {novel.name}
+            </span>
+          </h1>
           <div class="meta-info">
             <div class="meta-item">
               <span class="meta-label">読み方:</span>
@@ -149,33 +154,16 @@ const allTags = await getCollection("tag");
     }
   }
 
-  .rating-display {
-    background-color: var(--color-secondary);
-    padding: $spacing-md;
-    border-radius: $radius-md;
-    text-align: center;
-    border: 1px solid var(--color-border);
-
-    .rating-label {
-      display: block;
-      font-size: $font-size-sm;
-      color: var(--color-text-secondary);
-      margin-bottom: $spacing-xs;
-    }
-
-    .rating-tier {
-      display: block;
-      font-size: $font-size-2xl;
-      font-weight: 700;
-      color: var(--color-highlight);
-    }
-  }
-
   .info-section {
     h1 {
-      font-size: $font-size-3xl;
+      display: flex;
+      align-items: center;
+      gap: $spacing-md;
+      span {
+        font-size: $font-size-3xl;
+        color: var(--color-text);
+      }
       margin-bottom: $spacing-xl;
-      color: var(--color-text);
     }
   }
 
@@ -260,7 +248,7 @@ const allTags = await getCollection("tag");
     text-align: center;
     padding: $spacing-2xl;
     color: var(--color-text-secondary);
-    background-color: var(--color-secondary);
+    background-color: var(--color-card);
     border-radius: $radius-md;
   }
 </style>
