@@ -1,81 +1,42 @@
 [
   {
-    "id": "mushoku-tensei",
-    "name": "無職転生 ～異世界行ったら本気だす～",
-    "hiragana": "むしょくてんせい いせかいいったらほんきだす",
+    "id": "kagejitu",
+    "name": "陰の実力者になりたくて!",
+    "hiragana": "かげのじつりょくしゃになりたくて",
     "authors": {
-      "writer": "理不尽な孫の手",
-      "illustrator": "シロタカ"
+      "writer": "逢沢大介",
+      "illustrator": "東西"
     },
-    "alterName": ["無職転生", "Mushoku Tensei"],
-    "tags": ["isekai", "fantasy", "growth"],
-    "ratingTier": "S",
-    "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=無職転生"
+    "alterName": ["かげじつ","影実"],
+    "tags": ["isekai", "unrivaled", "misunderstanding"],
+    "ratingTier": "A+",
+    "cover": "https://images.ranobedb.org/NrfyTBvRmPrAF6nX.jpg"
   },
   {
-    "id": "spice-and-wolf",
-    "name": "狼と香辛料",
-    "hiragana": "おおかみとこうしんりょう",
+    "id": "overlord",
+    "name": "OVERLORD",
+    "hiragana": "オーバーロード",
     "authors": {
-      "writer": "支倉凍砂",
-      "illustrator": "文倉十"
+      "writer": "丸山くがね",
+      "illustrator": "so-bin"
     },
-    "alterName": ["Spice and Wolf"],
-    "tags": ["economics", "fantasy", "romance"],
-    "ratingTier": "S+",
-    "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=狼と香辛料"
+    "alterName": [],
+    "tags": ["isekai", "anti-hero", "dark-fantasy", "battle-of-wits"],
+    "ratingTier": "A+",
+    "cover": "https://images.ranobedb.org/32dZdjBbklrmdmTI.jpg"
   },
   {
-    "id": "haruhi",
-    "name": "涼宮ハルヒの憂鬱",
-    "hiragana": "すずみやはるひのゆううつ",
+    "id": "re0",
+    "name": "Re:ゼロから始める異世界生活",
+    "hiragana": "リ・ゼロからはじめるいせかいせいかつ",
     "authors": {
-      "writer": "谷川流",
-      "illustrator": "いとうのいぢ"
+      "writer": "長月達平",
+      "illustrator": "大塚真一郎"
     },
-    "alterName": ["涼宮ハルヒシリーズ", "The Melancholy of Haruhi Suzumiya"],
-    "tags": ["school"],
-    "ratingTier": "A",
-    "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=ハルヒ"
-  },
-  {
-    "id": "oregairu",
-    "name": "やはり俺の青春ラブコメはまちがっている。",
-    "hiragana": "やはりおれのせいしゅんらぶこめはまちがっている",
-    "authors": {
-      "writer": "渡航",
-      "illustrator": "ぽんかん⑧"
-    },
-    "alterName": ["俺ガイル", "Oregairu", "My Youth Romantic Comedy Is Wrong, As I Expected"],
-    "tags": ["school", "romance", "character"],
-    "ratingTier": "S",
-    "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=俺ガイル"
-  },
-  {
-    "id": "kino-journey",
-    "name": "キノの旅 -the Beautiful World-",
-    "hiragana": "きののたび",
-    "authors": {
-      "writer": "時雨沢恵一",
-      "illustrator": "黒星紅白"
-    },
-    "alterName": ["キノの旅", "Kino's Journey"],
-    "tags": [],
-    "ratingTier": "A",
-    "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=キノの旅"
-  },
-  {
-    "id": "boogiepop",
-    "name": "ブギーポップは笑わない",
-    "hiragana": "ぶぎーぽっぷはわらわない",
-    "authors": {
-      "writer": "上遠野浩平",
-      "illustrator": "緒方剛志"
-    },
-    "alterName": ["ブギーポップシリーズ", "Boogiepop"],
-    "tags": [],
-    "ratingTier": "A",
-    "cover": "https://placehold.co/300x400/06402B/E3FFF5?text=ブギーポップ"
+    "alterName": ["re0", "リゼロ"],
+    "tags": ["isekai", "dark-fantasy", "stupid-major-character"],
+    "ratingTier": "D-",
+    "cover": "https://images.ranobedb.org/CREz48RNPpCuZbIs.jpg"
   }
 ]
 

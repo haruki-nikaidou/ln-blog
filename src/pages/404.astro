@@ -33,7 +33,7 @@ import Layout from '../layouts/Layout.astro';
 
     h1 {
       font-size: $font-size-3xl * 3;
-      color: var(--color-highlight);
+      color: var(--color-primary);
       margin-bottom: $spacing-lg;
     }
 
@@ -67,11 +67,11 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .button-primary {
-      background-color: var(--color-highlight);
-      color: var(--color-secondary);
+      background-color: var(--color-primary);
+      color: var(--color-text);
 
       &:hover {
-        background-color: var(--color-accent);
+        background-color: color-mix(in srgb, var(--color-primary), transparent 20%);
         color: var(--color-text);
         text-decoration: none;
         transform: translateY(-2px);
@@ -81,12 +81,11 @@ import Layout from '../layouts/Layout.astro';
 
     .button-secondary {
       background-color: transparent;
-      color: var(--color-highlight);
-      border: 2px solid var(--color-highlight);
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
 
       &:hover {
-        background-color: var(--color-highlight);
-        color: var(--color-secondary);
+        background-color: color-mix(in srgb, var(--color-primary), transparent 90%);
         text-decoration: none;
         transform: translateY(-2px);
       }
