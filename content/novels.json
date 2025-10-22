@@ -7,8 +7,15 @@
       "writer": "逢沢大介",
       "illustrator": "東西"
     },
-    "alterName": ["かげじつ","影実"],
-    "tags": ["isekai", "unrivaled", "misunderstanding"],
+    "alterName": [
+      "かげじつ",
+      "影実"
+    ],
+    "tags": [
+      "isekai",
+      "unrivaled",
+      "misunderstanding"
+    ],
     "ratingTier": "A+",
     "cover": "kagejitu.jpg"
   },
@@ -21,7 +28,12 @@
       "illustrator": "so-bin"
     },
     "alterName": [],
-    "tags": ["isekai", "anti-hero", "dark-fantasy", "battle-of-wits"],
+    "tags": [
+      "isekai",
+      "anti-hero",
+      "dark-fantasy",
+      "battle-of-wits"
+    ],
     "ratingTier": "A+",
     "cover": "overlord.jpg"
   },
@@ -33,8 +45,16 @@
       "writer": "長月達平",
       "illustrator": "大塚真一郎"
     },
-    "alterName": ["re0", "リゼロ"],
-    "tags": ["isekai", "dark-fantasy", "stupid-major-character", "too-long"],
+    "alterName": [
+      "re0",
+      "リゼロ"
+    ],
+    "tags": [
+      "isekai",
+      "dark-fantasy",
+      "stupid-major-character",
+      "too-long"
+    ],
     "ratingTier": "D-",
     "cover": "re0.jpg"
   },
@@ -46,10 +66,134 @@
       "writer": "鴨志田一",
       "illustrator": "溝口ケージ"
     },
-    "alterName": ["青ブタ"],
-    "tags": ["school", "romance", "sf", "fantasy", "touching", "high-density"],
+    "alterName": [
+      "青ブタ"
+    ],
+    "tags": [
+      "school",
+      "romance",
+      "sf",
+      "fantasy",
+      "touching",
+      "high-density",
+      "blood-related-young-sister"
+    ],
     "ratingTier": "S-",
     "cover": "seibuta.jpg"
+  },
+  {
+    "id": "angel",
+    "name": "お隣の天使様にいつの間にか駄目人間にされていた件",
+    "hiragana": "おとなりのてんしさまにいつのまにかだめにんげんにされていたけん",
+    "authors": {
+      "writer": "佐伯さん",
+      "illustrator": "はねこと"
+    },
+    "alterName": [
+      "お隣の天使様"
+    ],
+    "tags": [
+      "romance",
+      "love-comedy",
+      "cure"
+    ],
+    "ratingTier": "S-",
+    "cover": "angel.jpg"
+  },
+  {
+    "id": "f7f2b9e018",
+    "name": "乙女ゲー世界はモブに厳しい世界です",
+    "hiragana": "おとめゲーせかいはモブにきびしいせかいです",
+    "authors": {
+      "writer": "三嶋与夢",
+      "illustrator": "孟達"
+    },
+    "alterName": [
+      "モブせか"
+    ],
+    "tags": [
+      "sf",
+      "isekai",
+      "unrivaled",
+      "distorted-char",
+      "blood-related-young-sister",
+      "epic"
+    ],
+    "ratingTier": "S",
+    "cover": "f7f2b9e018.jpg"
+  },
+  {
+    "id": "d1dd8972be",
+    "name": "壊れそうな君と、あの約束をもう一度",
+    "hiragana": "こわれそうなきみと、あのやくそくをもういちど",
+    "authors": {
+      "writer": "九条蓮",
+      "illustrator": "ゆがー"
+    },
+    "alterName": [],
+    "tags": [
+      "romance",
+      "osananajimi",
+      "stupid-major-character"
+    ],
+    "ratingTier": "C",
+    "cover": "d1dd8972be.jpg"
+  },
+  {
+    "id": "02dd0a1b4dd",
+    "name": "嘆きの亡霊は引退したい 〜最弱ハンターによる最強パーティ育成術〜",
+    "hiragana": "なげきのぼうれいはいんたいしたい さいじゃくハンターによるさいきょうパーティいくせいじゅつ",
+    "authors": {
+      "writer": "槻影",
+      "illustrator": "チーコ"
+    },
+    "alterName": [],
+    "tags": [
+      "scumbag",
+      "fantasy",
+      "misunderstanding",
+      "dnd"
+    ],
+    "ratingTier": "E",
+    "cover": "02dd0a1b4dd.jpg"
+  },
+  {
+    "id": "russia-slop",
+    "name": "時々ボソッとロシア語でデレる隣のアーリャさん",
+    "hiragana": "ときどきボソッとロシアごでデレるとなりのアーリャさん",
+    "authors": {
+      "writer": "燦々SUN",
+      "illustrator": "ももこ"
+    },
+    "alterName": ["ろしでれ", "ロシデレ", "アリサ"],
+    "tags": [
+      "school",
+      "scumbag",
+      "romance",
+      "make-no-sense",
+      "stupid-major-character"
+    ],
+    "ratingTier": "E+",
+    "cover": "russia-slop.jpg"
+  },
+  {
+    "id": "aikoi",
+    "name": "愛とか恋とか、くだらない。",
+    "hiragana": "あいとかこいとかくだらない",
+    "authors": {
+      "writer": "雲雀湯",
+      "illustrator": "美和野らぐ"
+    },
+    "alterName": ["あいこい"],
+    "tags": [
+      "romance",
+      "love-comedy",
+      "osananajimi",
+      "blood-related-young-sister",
+      "school",
+      "intercourse"
+    ],
+    "ratingTier": "B",
+    "cover": "aikoi.jpg"
   }
 ]
-
