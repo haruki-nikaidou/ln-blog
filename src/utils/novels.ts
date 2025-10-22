@@ -1,19 +1,15 @@
 import novelsData from '../../content/novels.json';
 import type { Novel } from './types';
 
-// Import all cover images
-import kagejituCover from '../assets/cover/kagejitu.jpg';
-import overlordCover from '../assets/cover/overlord.jpg';
-import re0Cover from '../assets/cover/re0.jpg';
-import seibutaCover from '../assets/cover/seibuta.jpg';
+// Dynamically import all cover images
+const coverImports = import.meta.glob<{ default: any }>('../assets/cover/*.{jpg,jpeg,png,webp}', { eager: true });
 
-// Map cover filenames to imported images
-const coverImages: Record<string, any> = {
-  'kagejitu.jpg': kagejituCover,
-  'overlord.jpg': overlordCover,
-  're0.jpg': re0Cover,
-  'seibuta.jpg': seibutaCover,
-};
+// Create a map with just the filename as key
+const coverImages: Record<string, any> = {};
+for (const [path, module] of Object.entries(coverImports)) {
+  const filename = path.split('/').pop()!;
+  coverImages[filename] = module.default;
+}
 
 // Add coverImage to each novel
 export const novels: Novel[] = (novelsData as Novel[]).map((novel) => ({
