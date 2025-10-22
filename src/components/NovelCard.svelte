@@ -212,7 +212,7 @@
   $color-tier-F: #880c0c;
   $color-tier-E: #880c0c;
   $color-tier-D: #b45304;
-  $color-tier-C: #fdef2b;
+  $color-tier-C: #fcf48d;
   $color-tier-B: #30a50c;
   $color-tier-A: #1388be;
   $color-tier-S: #9522e2;
@@ -254,7 +254,7 @@
   
   .tier-B {
     background-color: $color-tier-B;
-    color: $light-foreground;
+    color: $dark-foreground;
   }
 
   .tier-A {
