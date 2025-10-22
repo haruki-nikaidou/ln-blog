@@ -6,6 +6,7 @@ import { novels, getNovelById } from "../../utils/novels";
 import { compareTagCategories } from "../../utils/sorting";
 import ReviewLevelBadge from "../../components/ReviewLevelBadge.astro";
 import TierMark from "../../components/TierMark.astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   return novels.map((novel) => ({
@@ -34,7 +35,15 @@ const allTags = await getCollection("tag");
     <article class="novel-detail">
       <div class="novel-header">
         <div class="cover-section">
-          <img src={novel.cover} alt={`${novel.name}の表紙`} class="cover" />
+          {novel.coverImage && (
+            <Image 
+              src={novel.coverImage} 
+              alt={`${novel.name}の表紙`} 
+              class="cover"
+              width={300}
+              height={400}
+            />
+          )}
         </div>
 
         <div class="info-section">

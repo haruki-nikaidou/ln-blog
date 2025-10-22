@@ -1,3 +1,5 @@
+import type { ImageMetadata } from 'astro';
+
 export interface Author {
   writer: string;
   illustrator: string;
@@ -15,6 +17,7 @@ export interface Novel {
   tags: string[];
   ratingTier: RatingTier;
   cover: string;
+  coverImage?: ImageMetadata; // ImageMetadata from astro:assets
 }
 
 export type ReviewLevel = 'spoilerSafe' | 'spoilerAlert' | 'techniqueReview';

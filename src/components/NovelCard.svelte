@@ -39,7 +39,7 @@
 <article class="novel-card">
   <a href={`/novel/${novel.id}`} class="novel-link">
     <div class="cover-wrapper">
-      <img src={novel.cover} alt={`${novel.name}の表紙`} class="cover" />
+      <img src={novel.coverImage?.src} alt={`${novel.name}の表紙`} class="cover" />
       {#if novel.ratingTier}
         <div class="rating-badge">
           <span class={classForTier(novel.ratingTier)}>

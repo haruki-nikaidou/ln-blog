@@ -1,5 +1,5 @@
 ---
 id: "stupid-major-character"
 category: "character"
-name: "愚かすぎる主人公"
+name: "愚かな主人公"
 ---

@@ -10,7 +10,7 @@
     "alterName": ["かげじつ","影実"],
     "tags": ["isekai", "unrivaled", "misunderstanding"],
     "ratingTier": "A+",
-    "cover": "https://images.ranobedb.org/NrfyTBvRmPrAF6nX.jpg"
+    "cover": "kagejitu.jpg"
   },
   {
     "id": "overlord",
@@ -23,7 +23,7 @@
     "alterName": [],
     "tags": ["isekai", "anti-hero", "dark-fantasy", "battle-of-wits"],
     "ratingTier": "A+",
-    "cover": "https://images.ranobedb.org/32dZdjBbklrmdmTI.jpg"
+    "cover": "overlord.jpg"
   },
   {
     "id": "re0",
@@ -34,9 +34,22 @@
       "illustrator": "大塚真一郎"
     },
     "alterName": ["re0", "リゼロ"],
-    "tags": ["isekai", "dark-fantasy", "stupid-major-character"],
+    "tags": ["isekai", "dark-fantasy", "stupid-major-character", "too-long"],
     "ratingTier": "D-",
-    "cover": "https://images.ranobedb.org/CREz48RNPpCuZbIs.jpg"
+    "cover": "re0.jpg"
+  },
+  {
+    "id": "seibuta",
+    "name": "青春ブタ野郎シリーズ",
+    "hiragana": "せいしゅんブタやろうシリーズ",
+    "authors": {
+      "writer": "鴨志田一",
+      "illustrator": "溝口ケージ"
+    },
+    "alterName": ["青ブタ"],
+    "tags": ["school", "romance", "sf", "fantasy", "touching", "high-density"],
+    "ratingTier": "S-",
+    "cover": "seibuta.jpg"
   }
 ]
 

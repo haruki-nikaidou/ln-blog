@@ -1,5 +1,5 @@
 ---
 id: "unrivaled"
-category: "minorCategory"
+category: "character"
 name: "無双"
 ---
