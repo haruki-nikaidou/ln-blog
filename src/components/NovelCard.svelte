@@ -1,6 +1,8 @@
 <script lang="ts">
-  import type { Novel, TagCategory, RatingTier } from '../utils/types';
+  import type { Novel, TagCategory } from '../utils/types';
   import { compareTagCategories } from '../utils/sorting';
+  import TagLink from './TagLink.svelte';
+  import TierMark from './TierMark.svelte';
   
   interface Tag {
     id: string;
@@ -25,15 +27,6 @@
       return tag;
     })
     .sort((a, b) => compareTagCategories(a.category, b.category));
-  
-  // Helper function to get tier class
-  function classForTier(tier: RatingTier): string {
-    if (tier === null) {
-      return 'tier-extra';
-    }
-    const firstLetter = tier.charAt(0);
-    return `tier-${firstLetter}`;
-  }
 </script>
 
 <article class="novel-card">
@@ -42,9 +35,7 @@
       <img src={novel.coverImage?.src} alt={`${novel.name}の表紙`} class="cover" />
       {#if novel.ratingTier}
         <div class="rating-badge">
-          <span class={classForTier(novel.ratingTier)}>
-            {novel.ratingTier || '?'}
-          </span>
+          <TierMark tier={novel.ratingTier} />
         </div>
       {/if}
     </div>
@@ -69,9 +60,7 @@
     {#if novelTags.length > 0}
       <div class="tags">
         {#each novelTags as tag}
-          <a href={`/tags/intro/${tag.id}`} class={`tag-category-${tag.category}`}>
-            {tag.name}
-          </a>
+          <TagLink tagId={tag.id} category={tag.category} name={tag.name} />
         {/each}
       </div>
     {/if}
@@ -162,114 +151,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: $spacing-sm;
-  }
-
-  /* Tag styles (from TagLink.astro) */
-  $tag-color-category: #50b4e6;
-  $tag-color-character: #db89e6;
-  $tag-color-technique: #129424;
-  $tag-color-publisher: #ffcc99;
-  $tag-color-minor: #9e9e9e;
-
-  .tags a {
-    display: inline-block;
-    padding: $spacing-xs $spacing-sm;
-    color: var(--color-text);
-    border-radius: $radius-sm;
-    font-size: $font-size-xs;
-    text-decoration: none;
-    transition: all 0.2s ease;
-
-    &:hover {
-      transform: translateY(-1px);
-      opacity: 0.85;
-    }
-  }
-
-  .tag-category-majorCategory {
-    background-color: rgba($tag-color-category, 0.35);
-  }
-  .tag-category-minorCategory {
-    background-color: rgba($tag-color-category, 0.35);
-  }
-  .tag-category-character {
-    background-color: rgba($tag-color-character, 0.35);
-  }
-  .tag-category-technique {
-    background-color: rgba($tag-color-technique, 0.35);
-  }
-  .tag-category-pattern {
-    background-color: rgba($tag-color-minor, 0.35);
-  }
-  .tag-category-publisher {
-    background-color: rgba($tag-color-publisher, 0.35);
-  }
-  .tag-category-review {
-    background-color: rgba($tag-color-minor, 0.35);
-  }
-
-  /* Tier mark styles (from TierMark.astro) */
-  $color-tier-F: #880c0c;
-  $color-tier-E: #880c0c;
-  $color-tier-D: #b45304;
-  $color-tier-C: #fcf48d;
-  $color-tier-B: #30a50c;
-  $color-tier-A: #1388be;
-  $color-tier-S: #9522e2;
-  $color-tier-extra: #d3d3d3;
-
-  .rating-badge span {
-    font-size: $font-size-2xl;
-    border-radius: 100%;
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: $shadow-md;
-    font-weight: bold;
-    font-family: monospace;
-    border: 2px solid var(--color-border);
-  }
-
-  .tier-F {
-    background-color: $color-tier-F;
-    color: $dark-foreground;
-  }
-
-  .tier-E {
-    background-color: $color-tier-E;
-    color: $dark-foreground;
-  }
-  
-  .tier-D {
-    background-color: $color-tier-D;
-    color: $dark-foreground;
-  }
-
-  .tier-C {
-    background-color: $color-tier-C;
-    color: $light-foreground;
-  }
-  
-  .tier-B {
-    background-color: $color-tier-B;
-    color: $dark-foreground;
-  }
-
-  .tier-A {
-    background-color: $color-tier-A;
-    color: $dark-foreground;
-  }
-
-  .tier-S {
-    background-color: $color-tier-S;
-    color: $dark-foreground;
-  }
-
-  .tier-extra {
-    background-color: $color-tier-extra;
-    color: $light-foreground;
   }
 </style>
 

@@ -1,20 +1,20 @@
----
-import type { RatingTier } from '../utils/types';
+<script lang="ts">
+  import type { RatingTier } from '../utils/types';
 
-interface Props {
-  tier: RatingTier;
-}
-
-const { tier } = Astro.props;
-
-function classForTier(tier: RatingTier): string {
-  if (tier === null) {
-    return 'tier-extra';
+  interface Props {
+    tier: RatingTier;
   }
-  const firstLetter = tier.charAt(0);
-  return `tier-${firstLetter}`;
-}
----
+
+  let { tier }: Props = $props();
+
+  function classForTier(tier: RatingTier): string {
+    if (tier === null) {
+      return 'tier-extra';
+    }
+    const firstLetter = tier.charAt(0);
+    return `tier-${firstLetter}`;
+  }
+</script>
 
 <span class={classForTier(tier)}>
   {tier || '?'}
@@ -86,3 +86,4 @@ function classForTier(tier: RatingTier): string {
     color: $light-foreground;
   }
 </style>
+

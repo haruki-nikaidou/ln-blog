@@ -1,15 +1,14 @@
----
-import type { TagCategory } from '../utils/types';
+<script lang="ts">
+  import type { TagCategory } from '../utils/types';
 
-interface Props {
-  tagId: string;
-  category: TagCategory;
-  name: string;
-}
+  interface Props {
+    tagId: string;
+    category: TagCategory;
+    name: string;
+  }
 
-const { tagId, category, name } = Astro.props;
-
----
+  let { tagId, category, name }: Props = $props();
+</script>
 
 <a href={`/tags/intro/${tagId}`} class={`tag-category-${category}`}>
   {name}

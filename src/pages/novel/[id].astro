@@ -1,11 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import TagLink from "../../components/TagLink.astro";
+import TagLink from "../../components/TagLink.svelte";
 import { getCollection } from "astro:content";
 import { novels, getNovelById } from "../../utils/novels";
 import { compareTagCategories } from "../../utils/sorting";
 import ReviewLevelBadge from "../../components/ReviewLevelBadge.astro";
-import TierMark from "../../components/TierMark.astro";
+import TierMark from "../../components/TierMark.svelte";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
